@@ -96,7 +96,7 @@ function generateSsml(text, voiceName, rate, pitch) {
   return `<speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" version="1.0" xml:lang="zh-CN"> 
               <voice name="${voiceName}"> 
                   <mstts:express-as style="general" styledegree="1.0" role="default"> 
-                      <prosody rate="${rate}%" pitch="${pitch}%" volume="50">${text}</prosody> 
+                      <prosody rate="${rate}%" pitch="${pitch}%" volume="200">${text}</prosody> 
                   </mstts:express-as> 
               </voice> 
           </speak>`;
