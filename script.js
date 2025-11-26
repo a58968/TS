@@ -249,6 +249,27 @@ function updateSliderLabel(sliderId, labelId) {
 }
 
 $(document).ready(function() {
+    // 恢复保存的设置
+    const savedVoice = localStorage.getItem('tts_voice');
+    const savedRate = localStorage.getItem('tts_rate');
+    const savedPitch = localStorage.getItem('tts_pitch');
+    const savedStyle = localStorage.getItem('tts_style');
+    const savedText = localStorage.getItem('tts_text');
+    
+    if (savedVoice) $('#speaker').val(savedVoice);
+    if (savedRate) $('#rate').val(savedRate);
+    if (savedPitch) $('#pitch').val(savedPitch);
+    if (savedStyle) $('#style').val(savedStyle);
+    if (savedText) $('#text').val(savedText);
+    
+    // 更新滑块显示
+    updateSliderLabel('rate', 'rateValue');
+    updateSliderLabel('pitch', 'pitchValue');
+    
+    // 其余代码保持不变...
+    if ($('#api').length && !$('#api').val()) {
+        $('#api').val('edge-api');
+    }
     // 确保默认API选择为edge-api
     if ($('#api').length && !$('#api').val()) {
         $('#api').val('edge-api');
