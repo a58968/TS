@@ -1,12 +1,12 @@
 {
     "edge-api": {
         "speakers": {
-            "zh-CN-XiaoxiaoNeural": "晓晓",
+            "zh-CN-XiaochenNeural": "晓辰",
             "zh-CN-YunxiNeural": "云希",
             "zh-CN-YunjianNeural": "云健",
             "zh-CN-XiaoyiNeural": "晓伊",
             "zh-CN-YunyangNeural": "云扬",
-            "zh-CN-XiaochenNeural": "晓辰",
+            "zh-CN-XiaoxiaoNeural": "晓晓",
             "zh-CN-XiaochenMultilingualNeural": "晓辰 多语言",
             "zh-CN-XiaohanNeural": "晓涵",
             "zh-CN-XiaomengNeural": "晓梦",
