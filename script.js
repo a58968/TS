@@ -72,9 +72,6 @@ function updateApiOptions() {
     // 保存当前选择
     const currentApi = apiSelect.val();
     
-    // 清除除了内置选项之外的所有选项
-    apiSelect.find('option:not([value="edge-api"]):not([value="oai-tts"])').remove();
-    
     // 添加自定义API选项
     Object.keys(customAPIs).forEach(apiId => {
         apiSelect.append(new Option(customAPIs[apiId].name, apiId));
@@ -188,7 +185,7 @@ async function fetchCustomSpeakers(apiId) {
             if (!apiConfig[apiId]) {
                 apiConfig[apiId] = {};
             }
-            apiConfig[apiId].speakers = speakerMap;
+            apiConfig[apiId]。speakers = speakerMap;
             
             return speakerMap;
         } else {
@@ -205,7 +202,7 @@ async function fetchCustomSpeakers(apiId) {
 // 更新API提示文本
 function updateApiTipsText(apiName) {
     const tips = {
-        'edge-api': 'Edge API 请求应该不限次数',
+        'edge-api': 'Edge API 请求应该不限次数'，
         'oai-tts': 'OpenAI-TTS 支持情感调整，不支持停顿标签'
     };
     
@@ -223,25 +220,25 @@ function updateApiTipsText(apiName) {
         $('#instructionsContainer').show();
         $('#formatContainer').show();
         $('#rateContainer, #pitchContainer')。hide();
-        $('#pauseControls').hide(); // 隐藏停顿控制
+        $('#pauseControls')。hide(); // 隐藏停顿控制
     } else {
         $('#instructionsContainer').hide();
         $('#formatContainer')。hide();
         $('#rateContainer, #pitchContainer').show();
-        $('#pauseControls').show(); // 显示停顿控制
+        $('#pauseControls')。show(); // 显示停顿控制
     }
     
     // 更新字符限制提示文本
     updateCharCountText();
 }
 
-function updateSliderLabel(sliderId, labelId) {
+function updateSliderLabel(sliderId， labelId) {
     const slider = $(`#${sliderId}`);
     const label = $(`#${labelId}`);
     label.text(slider.val());
     
-    slider.off('input').on('input', function() {
-        label.text(this.value);
+    slider.off('input')。于('input'， function() {
+        label。text(this.value);
     });
 }
 
