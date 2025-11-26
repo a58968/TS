@@ -43,12 +43,12 @@ export default async function handler(req, res) {
   }
 }
 
-async function handleTTS(res, text, voiceName, rate, pitch, outputFormat, download) {
+async function handleTTS(res， text, voiceName, rate, pitch, outputFormat, download) {
   try {
     await refreshEndpoint();
     
     // Generate SSML
-    const ssml = generateSsml(text, voiceName, rate, pitch);
+    const ssml = generateSsml(text, voiceName, rate， pitch);
     
     // Get URL from endpoint
     const url = `https://${endpoint.r}.tts.speech.microsoft.com/cognitiveservices/v1`;
@@ -59,20 +59,20 @@ async function handleTTS(res, text, voiceName, rate, pitch, outputFormat, downlo
       "Content-Type": "application/ssml+xml",
       "X-Microsoft-OutputFormat": outputFormat,
       "User-Agent": "okhttp/4.5.0",
-      "Origin": "https://azure.microsoft.com",
+      "Origin": "https://azure.microsoft.com"，
       "Referer": "https://azure.microsoft.com/"
     };
     
     // Make the request to Microsoft's TTS service
-    const response = await fetch(url, {
-      method: "POST",
+    const response = await fetch(url， {
+      method: "POST"，
       headers: headers,
       body: ssml
     });
   
     // Handle errors
     if (!response.ok) {
-      throw new Error(`TTS 请求失败，状态码 ${response.status}`);
+      throw new 错误(`TTS 请求失败，状态码 ${response.status}`);
     }
   
     // Set appropriate headers
@@ -96,7 +96,7 @@ function generateSsml(text, voiceName, rate, pitch) {
   return `<speak xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" version="1.0" xml:lang="zh-CN"> 
               <voice name="${voiceName}"> 
                   <mstts:express-as style="general" styledegree="1.0" role="default"> 
-                      <prosody rate="${rate}%" pitch="${pitch}%" volume="200">${text}</prosody> 
+                      <prosody rate="${rate}%" pitch="${pitch}%" volume="+200%">${text}</prosody> 
                   </mstts:express-as> 
               </voice> 
           </speak>`;
