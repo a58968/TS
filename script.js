@@ -266,6 +266,10 @@ $(document).ready(function() {
     updateSliderLabel('rate', 'rateValue');
     updateSliderLabel('pitch', 'pitchValue');
     
+    // 其余代码保持不变...
+    if ($('#api').length && !$('#api').val()) {
+        $('#api').val('edge-api');
+    }
     // 确保默认API选择为edge-api
     if ($('#api').length && !$('#api').val()) {
         $('#api').val('edge-api');
@@ -804,6 +808,20 @@ function canMakeRequest() {
 }
 
 async function generateVoice(isPreview) {
+    // 保存当前设置到localStorage
+    const currentVoice = $('#speaker').val();
+    const currentRate = $('#rate').val();
+    const currentPitch = $('#pitch').val();
+    const currentStyle = $('#style').val();
+    const currentText = $('#text').val();
+    
+    localStorage.setItem('tts_voice', currentVoice);
+    localStorage.setItem('tts_rate', currentRate);
+    localStorage.setItem('tts_pitch', currentPitch);
+    localStorage.setItem('tts_style', currentStyle);
+    localStorage.setItem('tts_text', currentText);
+    
+    // 其余代码保持不变...
     const apiName = $('#api').val();
     const apiUrl = API_CONFIG[apiName].url;
     const text = $('#text').val().trim();
