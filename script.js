@@ -72,11 +72,17 @@ function updateApiOptions() {
     // 保存当前选择
     const currentApi = apiSelect.val();
     
+    // 清除除了内置选项之外的所有选项
+    apiSelect.find('option:not([value="edge-api"]):not([value="oai-tts"])').remove();
+    
     // 添加自定义API选项
     Object.keys(customAPIs).forEach(apiId => {
         apiSelect.append(new Option(customAPIs[apiId].name, apiId));
     });
     
+    // 如果之前选择的是有效的选项，则恢复选择
+    if (currentApi && (currentApi === 'edge-api' || currentApi === 'oai-tts' || customAPIs[currentApi])) {
+        apiSelect.val(currentApi);
     }
 }
 
@@ -185,16 +191,16 @@ async function fetchCustomSpeakers(apiId) {
             if (!apiConfig[apiId]) {
                 apiConfig[apiId] = {};
             }
-            apiConfig[apiId]。speakers = speakerMap;
+            apiConfig[apiId].speakers = speakerMap;
             
             return speakerMap;
         } else {
             // 如果响应格式不匹配预期
-            console。warn('API返回格式不是标准OpenAI格式:'， data);
+            console.warn('API返回格式不是标准OpenAI格式:', data);
             return { 'default': '自定义讲述人' };
         }
     } catch (error) {
-        console。error('获取自定义讲述者失败:'， error);
+        console.error('获取自定义讲述者失败:', error);
         return { 'error': `错误: ${error.message}` };
     }
 }
@@ -202,7 +208,7 @@ async function fetchCustomSpeakers(apiId) {
 // 更新API提示文本
 function updateApiTipsText(apiName) {
     const tips = {
-        'edge-api': 'Edge API 请求应该不限次数'，
+        'edge-api': 'Edge API 请求应该不限次数',
         'oai-tts': 'OpenAI-TTS 支持情感调整，不支持停顿标签'
     };
     
@@ -210,35 +216,35 @@ function updateApiTipsText(apiName) {
     if (customAPIs[apiName]) {
         const format = customAPIs[apiName].format || 'openai';
         const formatStr = format === 'openai' ? 'OpenAI格式' : 'Edge API格式';
-        $('#apiTips')。text(`自定义API: ${customAPIs[apiName]。name} - 使用${formatStr}`);
+        $('#apiTips').text(`自定义API: ${customAPIs[apiName].name} - 使用${formatStr}`);
     } else {
-        $('#apiTips')。text(tips[apiName] || '');
+        $('#apiTips').text(tips[apiName] || '');
     }
     
     // 根据API类型调整界面
     if (apiName === 'oai-tts' || (customAPIs[apiName] && customAPIs[apiName].format === 'openai')) {
         $('#instructionsContainer').show();
         $('#formatContainer').show();
-        $('#rateContainer, #pitchContainer')。hide();
-        $('#pauseControls')。hide(); // 隐藏停顿控制
+        $('#rateContainer, #pitchContainer').hide();
+        $('#pauseControls').hide(); // 隐藏停顿控制
     } else {
         $('#instructionsContainer').hide();
-        $('#formatContainer')。hide();
+        $('#formatContainer').hide();
         $('#rateContainer, #pitchContainer').show();
-        $('#pauseControls')。show(); // 显示停顿控制
+        $('#pauseControls').show(); // 显示停顿控制
     }
     
     // 更新字符限制提示文本
     updateCharCountText();
 }
 
-function updateSliderLabel(sliderId， labelId) {
+function updateSliderLabel(sliderId, labelId) {
     const slider = $(`#${sliderId}`);
     const label = $(`#${labelId}`);
     label.text(slider.val());
     
-    slider.off('input')。于('input'， function() {
-        label。text(this.value);
+    slider.off('input').on('input', function() {
+        label.text(this.value);
     });
 }
 
