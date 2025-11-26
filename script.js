@@ -80,9 +80,6 @@ function updateApiOptions() {
         apiSelect.append(new Option(customAPIs[apiId].name, apiId));
     });
     
-    // 如果之前选择的是有效的选项，则恢复选择
-    if (currentApi && (currentApi === 'edge-api' || currentApi === 'oai-tts' || customAPIs[currentApi])) {
-        apiSelect.val(currentApi);
     }
 }
 
@@ -196,11 +193,11 @@ async function fetchCustomSpeakers(apiId) {
             return speakerMap;
         } else {
             // 如果响应格式不匹配预期
-            console.warn('API返回格式不是标准OpenAI格式:', data);
+            console。warn('API返回格式不是标准OpenAI格式:'， data);
             return { 'default': '自定义讲述人' };
         }
     } catch (error) {
-        console.error('获取自定义讲述者失败:', error);
+        console。error('获取自定义讲述者失败:'， error);
         return { 'error': `错误: ${error.message}` };
     }
 }
@@ -216,20 +213,20 @@ function updateApiTipsText(apiName) {
     if (customAPIs[apiName]) {
         const format = customAPIs[apiName].format || 'openai';
         const formatStr = format === 'openai' ? 'OpenAI格式' : 'Edge API格式';
-        $('#apiTips').text(`自定义API: ${customAPIs[apiName].name} - 使用${formatStr}`);
+        $('#apiTips')。text(`自定义API: ${customAPIs[apiName]。name} - 使用${formatStr}`);
     } else {
-        $('#apiTips').text(tips[apiName] || '');
+        $('#apiTips')。text(tips[apiName] || '');
     }
     
     // 根据API类型调整界面
     if (apiName === 'oai-tts' || (customAPIs[apiName] && customAPIs[apiName].format === 'openai')) {
         $('#instructionsContainer').show();
         $('#formatContainer').show();
-        $('#rateContainer, #pitchContainer').hide();
+        $('#rateContainer, #pitchContainer')。hide();
         $('#pauseControls').hide(); // 隐藏停顿控制
     } else {
         $('#instructionsContainer').hide();
-        $('#formatContainer').hide();
+        $('#formatContainer')。hide();
         $('#rateContainer, #pitchContainer').show();
         $('#pauseControls').show(); // 显示停顿控制
     }
@@ -266,10 +263,6 @@ $(document).ready(function() {
     updateSliderLabel('rate', 'rateValue');
     updateSliderLabel('pitch', 'pitchValue');
     
-    // 其余代码保持不变...
-    if ($('#api').length && !$('#api').val()) {
-        $('#api').val('edge-api');
-    }
     // 确保默认API选择为edge-api
     if ($('#api').length && !$('#api').val()) {
         $('#api').val('edge-api');
